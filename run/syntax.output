@@ -1,0 +1,1078 @@
+Grammar
+
+    0 $accept: Program $end
+
+    1 Program: Declarations DishName Ingredients Preparations Steps
+
+    2 Declarations: DECLBEGIN COLON DecList
+
+    3 DecList: %empty
+    4        | Declaration DecList
+
+    5 Declaration: Type IdList SEMICOLON
+    6            | error SEMICOLON
+    7            | error
+
+    8 Type: VEGETABLE
+    9     | MEAT
+   10     | SEASONING
+
+   11 IdList: ID
+   12       | ID COMMA IdList
+
+   13 DishName: NAMEBEGIN COLON Name SEMICOLON
+
+   14 Name: ID
+   15     | ID Name
+
+   16 Ingredients: INGRBEGIN COLON IngreList
+
+   17 IngreList: %empty
+   18          | IngredientSentence IngreList
+
+   19 IngredientSentence: Ingredient
+   20                   | error SEMICOLON
+   21                   | error
+
+   22 Ingredient: ID NUM UNIT SEMICOLON
+   23           | ID SEMICOLON
+
+   24 Preparations: PREPBEGIN COLON PrepStmts
+
+   25 PrepStmts: %empty
+   26          | PrepSentence PrepStmts
+
+   27 PrepSentence: PrepStmt
+   28             | error SEMICOLON
+   29             | error
+
+   30 PrepStmt: PACTION NUM UNIT ID SEMICOLON
+   31         | PACTION ID SEMICOLON
+   32         | PACTION ID Preposition State SEMICOLON
+   33         | PACTION ID FOR NUM TIME SEMICOLON
+
+   34 Steps: STEPBEGIN COLON StepStmts
+
+   35 StepStmts: %empty
+   36          | StepSentence StepStmts
+
+   37 StepSentence: StepStmt
+   38             | error SEMICOLON
+   39             | error
+
+   40 StepStmt: Saction NUM UNIT ID SEMICOLON
+   41         | Saction ID SEMICOLON
+   42         | Saction ID Preposition State SEMICOLON
+   43         | Saction ID FOR NUM TIME SEMICOLON
+   44         | LEVEL FLAME BLOCK
+
+   45 BLOCK: LC StepStmts RC
+
+   46 Saction: SACTION
+   47        | UACTION
+
+   48 Preposition: TO
+   49            | INTO
+   50            | WHEN
+   51            | UNTIL
+   52            | AFTER
+
+   53 State: BECOME ADJECTIVE
+   54      | BECOME UNIT
+   55      | UNIT
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256) 6 7 20 21 28 29 38 39
+    SEMICOLON (258) 5 6 13 20 22 23 28 30 31 32 33 38 40 41 42 43
+    COLON (259) 2 13 16 24 34
+    COMMA (260) 12
+    SACTION (261) 46
+    PACTION (262) 30 31 32 33
+    ADJECTIVE (263) 53
+    UNIT (264) 22 30 40 54 55
+    LEVEL (265) 44
+    TIME (266) 33 43
+    NAMEBEGIN (267) 13
+    DECLBEGIN (268) 2
+    INGRBEGIN (269) 16
+    PREPBEGIN (270) 24
+    STEPBEGIN (271) 34
+    FOR (272) 33 43
+    TO (273) 48
+    INTO (274) 49
+    WHEN (275) 50
+    UNTIL (276) 51
+    AFTER (277) 52
+    BECOME (278) 53 54
+    FLAME (279) 44
+    VEGETABLE (280) 8
+    MEAT (281) 9
+    SEASONING (282) 10
+    LC (283) 45
+    RC (284) 45
+    ID <id> (285) 11 12 14 15 22 23 30 31 32 33 40 41 42 43
+    UACTION <uaction> (286) 47
+    NUM <number> (287) 22 30 33 40 43
+
+
+Nonterminals, with rules where they appear
+
+    $accept (33)
+        on left: 0
+    Program (34)
+        on left: 1
+        on right: 0
+    Declarations (35)
+        on left: 2
+        on right: 1
+    DecList (36)
+        on left: 3 4
+        on right: 2 4
+    Declaration (37)
+        on left: 5 6 7
+        on right: 4
+    Type (38)
+        on left: 8 9 10
+        on right: 5
+    IdList (39)
+        on left: 11 12
+        on right: 5 12
+    DishName (40)
+        on left: 13
+        on right: 1
+    Name (41)
+        on left: 14 15
+        on right: 13 15
+    Ingredients (42)
+        on left: 16
+        on right: 1
+    IngreList (43)
+        on left: 17 18
+        on right: 16 18
+    IngredientSentence (44)
+        on left: 19 20 21
+        on right: 18
+    Ingredient (45)
+        on left: 22 23
+        on right: 19
+    Preparations (46)
+        on left: 24
+        on right: 1
+    PrepStmts (47)
+        on left: 25 26
+        on right: 24 26
+    PrepSentence (48)
+        on left: 27 28 29
+        on right: 26
+    PrepStmt (49)
+        on left: 30 31 32 33
+        on right: 27
+    Steps (50)
+        on left: 34
+        on right: 1
+    StepStmts (51)
+        on left: 35 36
+        on right: 34 36 45
+    StepSentence (52)
+        on left: 37 38 39
+        on right: 36
+    StepStmt (53)
+        on left: 40 41 42 43 44
+        on right: 37
+    BLOCK (54)
+        on left: 45
+        on right: 44
+    Saction (55)
+        on left: 46 47
+        on right: 40 41 42 43
+    Preposition (56)
+        on left: 48 49 50 51 52
+        on right: 32 42
+    State (57)
+        on left: 53 54 55
+        on right: 32 42
+
+
+State 0
+
+    0 $accept: . Program $end
+
+    DECLBEGIN  shift, and go to state 1
+
+    Program       go to state 2
+    Declarations  go to state 3
+
+
+State 1
+
+    2 Declarations: DECLBEGIN . COLON DecList
+
+    COLON  shift, and go to state 4
+
+
+State 2
+
+    0 $accept: Program . $end
+
+    $end  shift, and go to state 5
+
+
+State 3
+
+    1 Program: Declarations . DishName Ingredients Preparations Steps
+
+    NAMEBEGIN  shift, and go to state 6
+
+    DishName  go to state 7
+
+
+State 4
+
+    2 Declarations: DECLBEGIN COLON . DecList
+
+    error      shift, and go to state 8
+    VEGETABLE  shift, and go to state 9
+    MEAT       shift, and go to state 10
+    SEASONING  shift, and go to state 11
+
+    NAMEBEGIN  reduce using rule 3 (DecList)
+
+    DecList      go to state 12
+    Declaration  go to state 13
+    Type         go to state 14
+
+
+State 5
+
+    0 $accept: Program $end .
+
+    $default  accept
+
+
+State 6
+
+   13 DishName: NAMEBEGIN . COLON Name SEMICOLON
+
+    COLON  shift, and go to state 15
+
+
+State 7
+
+    1 Program: Declarations DishName . Ingredients Preparations Steps
+
+    INGRBEGIN  shift, and go to state 16
+
+    Ingredients  go to state 17
+
+
+State 8
+
+    6 Declaration: error . SEMICOLON
+    7            | error .
+
+    SEMICOLON  shift, and go to state 18
+
+    $default  reduce using rule 7 (Declaration)
+
+
+State 9
+
+    8 Type: VEGETABLE .
+
+    $default  reduce using rule 8 (Type)
+
+
+State 10
+
+    9 Type: MEAT .
+
+    $default  reduce using rule 9 (Type)
+
+
+State 11
+
+   10 Type: SEASONING .
+
+    $default  reduce using rule 10 (Type)
+
+
+State 12
+
+    2 Declarations: DECLBEGIN COLON DecList .
+
+    $default  reduce using rule 2 (Declarations)
+
+
+State 13
+
+    4 DecList: Declaration . DecList
+
+    error      shift, and go to state 8
+    VEGETABLE  shift, and go to state 9
+    MEAT       shift, and go to state 10
+    SEASONING  shift, and go to state 11
+
+    NAMEBEGIN  reduce using rule 3 (DecList)
+
+    DecList      go to state 19
+    Declaration  go to state 13
+    Type         go to state 14
+
+
+State 14
+
+    5 Declaration: Type . IdList SEMICOLON
+
+    ID  shift, and go to state 20
+
+    IdList  go to state 21
+
+
+State 15
+
+   13 DishName: NAMEBEGIN COLON . Name SEMICOLON
+
+    ID  shift, and go to state 22
+
+    Name  go to state 23
+
+
+State 16
+
+   16 Ingredients: INGRBEGIN . COLON IngreList
+
+    COLON  shift, and go to state 24
+
+
+State 17
+
+    1 Program: Declarations DishName Ingredients . Preparations Steps
+
+    PREPBEGIN  shift, and go to state 25
+
+    Preparations  go to state 26
+
+
+State 18
+
+    6 Declaration: error SEMICOLON .
+
+    $default  reduce using rule 6 (Declaration)
+
+
+State 19
+
+    4 DecList: Declaration DecList .
+
+    $default  reduce using rule 4 (DecList)
+
+
+State 20
+
+   11 IdList: ID .
+   12       | ID . COMMA IdList
+
+    COMMA  shift, and go to state 27
+
+    $default  reduce using rule 11 (IdList)
+
+
+State 21
+
+    5 Declaration: Type IdList . SEMICOLON
+
+    SEMICOLON  shift, and go to state 28
+
+
+State 22
+
+   14 Name: ID .
+   15     | ID . Name
+
+    ID  shift, and go to state 22
+
+    $default  reduce using rule 14 (Name)
+
+    Name  go to state 29
+
+
+State 23
+
+   13 DishName: NAMEBEGIN COLON Name . SEMICOLON
+
+    SEMICOLON  shift, and go to state 30
+
+
+State 24
+
+   16 Ingredients: INGRBEGIN COLON . IngreList
+
+    error  shift, and go to state 31
+    ID     shift, and go to state 32
+
+    PREPBEGIN  reduce using rule 17 (IngreList)
+
+    IngreList           go to state 33
+    IngredientSentence  go to state 34
+    Ingredient          go to state 35
+
+
+State 25
+
+   24 Preparations: PREPBEGIN . COLON PrepStmts
+
+    COLON  shift, and go to state 36
+
+
+State 26
+
+    1 Program: Declarations DishName Ingredients Preparations . Steps
+
+    STEPBEGIN  shift, and go to state 37
+
+    Steps  go to state 38
+
+
+State 27
+
+   12 IdList: ID COMMA . IdList
+
+    ID  shift, and go to state 20
+
+    IdList  go to state 39
+
+
+State 28
+
+    5 Declaration: Type IdList SEMICOLON .
+
+    $default  reduce using rule 5 (Declaration)
+
+
+State 29
+
+   15 Name: ID Name .
+
+    $default  reduce using rule 15 (Name)
+
+
+State 30
+
+   13 DishName: NAMEBEGIN COLON Name SEMICOLON .
+
+    $default  reduce using rule 13 (DishName)
+
+
+State 31
+
+   20 IngredientSentence: error . SEMICOLON
+   21                   | error .
+
+    SEMICOLON  shift, and go to state 40
+
+    $default  reduce using rule 21 (IngredientSentence)
+
+
+State 32
+
+   22 Ingredient: ID . NUM UNIT SEMICOLON
+   23           | ID . SEMICOLON
+
+    SEMICOLON  shift, and go to state 41
+    NUM        shift, and go to state 42
+
+
+State 33
+
+   16 Ingredients: INGRBEGIN COLON IngreList .
+
+    $default  reduce using rule 16 (Ingredients)
+
+
+State 34
+
+   18 IngreList: IngredientSentence . IngreList
+
+    error  shift, and go to state 31
+    ID     shift, and go to state 32
+
+    PREPBEGIN  reduce using rule 17 (IngreList)
+
+    IngreList           go to state 43
+    IngredientSentence  go to state 34
+    Ingredient          go to state 35
+
+
+State 35
+
+   19 IngredientSentence: Ingredient .
+
+    $default  reduce using rule 19 (IngredientSentence)
+
+
+State 36
+
+   24 Preparations: PREPBEGIN COLON . PrepStmts
+
+    error    shift, and go to state 44
+    PACTION  shift, and go to state 45
+
+    STEPBEGIN  reduce using rule 25 (PrepStmts)
+
+    PrepStmts     go to state 46
+    PrepSentence  go to state 47
+    PrepStmt      go to state 48
+
+
+State 37
+
+   34 Steps: STEPBEGIN . COLON StepStmts
+
+    COLON  shift, and go to state 49
+
+
+State 38
+
+    1 Program: Declarations DishName Ingredients Preparations Steps .
+
+    $default  reduce using rule 1 (Program)
+
+
+State 39
+
+   12 IdList: ID COMMA IdList .
+
+    $default  reduce using rule 12 (IdList)
+
+
+State 40
+
+   20 IngredientSentence: error SEMICOLON .
+
+    $default  reduce using rule 20 (IngredientSentence)
+
+
+State 41
+
+   23 Ingredient: ID SEMICOLON .
+
+    $default  reduce using rule 23 (Ingredient)
+
+
+State 42
+
+   22 Ingredient: ID NUM . UNIT SEMICOLON
+
+    UNIT  shift, and go to state 50
+
+
+State 43
+
+   18 IngreList: IngredientSentence IngreList .
+
+    $default  reduce using rule 18 (IngreList)
+
+
+State 44
+
+   28 PrepSentence: error . SEMICOLON
+   29             | error .
+
+    SEMICOLON  shift, and go to state 51
+
+    $default  reduce using rule 29 (PrepSentence)
+
+
+State 45
+
+   30 PrepStmt: PACTION . NUM UNIT ID SEMICOLON
+   31         | PACTION . ID SEMICOLON
+   32         | PACTION . ID Preposition State SEMICOLON
+   33         | PACTION . ID FOR NUM TIME SEMICOLON
+
+    ID   shift, and go to state 52
+    NUM  shift, and go to state 53
+
+
+State 46
+
+   24 Preparations: PREPBEGIN COLON PrepStmts .
+
+    $default  reduce using rule 24 (Preparations)
+
+
+State 47
+
+   26 PrepStmts: PrepSentence . PrepStmts
+
+    error    shift, and go to state 44
+    PACTION  shift, and go to state 45
+
+    STEPBEGIN  reduce using rule 25 (PrepStmts)
+
+    PrepStmts     go to state 54
+    PrepSentence  go to state 47
+    PrepStmt      go to state 48
+
+
+State 48
+
+   27 PrepSentence: PrepStmt .
+
+    $default  reduce using rule 27 (PrepSentence)
+
+
+State 49
+
+   34 Steps: STEPBEGIN COLON . StepStmts
+
+    error    shift, and go to state 55
+    SACTION  shift, and go to state 56
+    LEVEL    shift, and go to state 57
+    UACTION  shift, and go to state 58
+
+    $end  reduce using rule 35 (StepStmts)
+
+    StepStmts     go to state 59
+    StepSentence  go to state 60
+    StepStmt      go to state 61
+    Saction       go to state 62
+
+
+State 50
+
+   22 Ingredient: ID NUM UNIT . SEMICOLON
+
+    SEMICOLON  shift, and go to state 63
+
+
+State 51
+
+   28 PrepSentence: error SEMICOLON .
+
+    $default  reduce using rule 28 (PrepSentence)
+
+
+State 52
+
+   31 PrepStmt: PACTION ID . SEMICOLON
+   32         | PACTION ID . Preposition State SEMICOLON
+   33         | PACTION ID . FOR NUM TIME SEMICOLON
+
+    SEMICOLON  shift, and go to state 64
+    FOR        shift, and go to state 65
+    TO         shift, and go to state 66
+    INTO       shift, and go to state 67
+    WHEN       shift, and go to state 68
+    UNTIL      shift, and go to state 69
+    AFTER      shift, and go to state 70
+
+    Preposition  go to state 71
+
+
+State 53
+
+   30 PrepStmt: PACTION NUM . UNIT ID SEMICOLON
+
+    UNIT  shift, and go to state 72
+
+
+State 54
+
+   26 PrepStmts: PrepSentence PrepStmts .
+
+    $default  reduce using rule 26 (PrepStmts)
+
+
+State 55
+
+   38 StepSentence: error . SEMICOLON
+   39             | error .
+
+    SEMICOLON  shift, and go to state 73
+
+    $default  reduce using rule 39 (StepSentence)
+
+
+State 56
+
+   46 Saction: SACTION .
+
+    $default  reduce using rule 46 (Saction)
+
+
+State 57
+
+   44 StepStmt: LEVEL . FLAME BLOCK
+
+    FLAME  shift, and go to state 74
+
+
+State 58
+
+   47 Saction: UACTION .
+
+    $default  reduce using rule 47 (Saction)
+
+
+State 59
+
+   34 Steps: STEPBEGIN COLON StepStmts .
+
+    $default  reduce using rule 34 (Steps)
+
+
+State 60
+
+   36 StepStmts: StepSentence . StepStmts
+
+    error    shift, and go to state 55
+    SACTION  shift, and go to state 56
+    LEVEL    shift, and go to state 57
+    UACTION  shift, and go to state 58
+
+    $end  reduce using rule 35 (StepStmts)
+    RC    reduce using rule 35 (StepStmts)
+
+    StepStmts     go to state 75
+    StepSentence  go to state 60
+    StepStmt      go to state 61
+    Saction       go to state 62
+
+
+State 61
+
+   37 StepSentence: StepStmt .
+
+    $default  reduce using rule 37 (StepSentence)
+
+
+State 62
+
+   40 StepStmt: Saction . NUM UNIT ID SEMICOLON
+   41         | Saction . ID SEMICOLON
+   42         | Saction . ID Preposition State SEMICOLON
+   43         | Saction . ID FOR NUM TIME SEMICOLON
+
+    ID   shift, and go to state 76
+    NUM  shift, and go to state 77
+
+
+State 63
+
+   22 Ingredient: ID NUM UNIT SEMICOLON .
+
+    $default  reduce using rule 22 (Ingredient)
+
+
+State 64
+
+   31 PrepStmt: PACTION ID SEMICOLON .
+
+    $default  reduce using rule 31 (PrepStmt)
+
+
+State 65
+
+   33 PrepStmt: PACTION ID FOR . NUM TIME SEMICOLON
+
+    NUM  shift, and go to state 78
+
+
+State 66
+
+   48 Preposition: TO .
+
+    $default  reduce using rule 48 (Preposition)
+
+
+State 67
+
+   49 Preposition: INTO .
+
+    $default  reduce using rule 49 (Preposition)
+
+
+State 68
+
+   50 Preposition: WHEN .
+
+    $default  reduce using rule 50 (Preposition)
+
+
+State 69
+
+   51 Preposition: UNTIL .
+
+    $default  reduce using rule 51 (Preposition)
+
+
+State 70
+
+   52 Preposition: AFTER .
+
+    $default  reduce using rule 52 (Preposition)
+
+
+State 71
+
+   32 PrepStmt: PACTION ID Preposition . State SEMICOLON
+
+    UNIT    shift, and go to state 79
+    BECOME  shift, and go to state 80
+
+    State  go to state 81
+
+
+State 72
+
+   30 PrepStmt: PACTION NUM UNIT . ID SEMICOLON
+
+    ID  shift, and go to state 82
+
+
+State 73
+
+   38 StepSentence: error SEMICOLON .
+
+    $default  reduce using rule 38 (StepSentence)
+
+
+State 74
+
+   44 StepStmt: LEVEL FLAME . BLOCK
+
+    LC  shift, and go to state 83
+
+    BLOCK  go to state 84
+
+
+State 75
+
+   36 StepStmts: StepSentence StepStmts .
+
+    $default  reduce using rule 36 (StepStmts)
+
+
+State 76
+
+   41 StepStmt: Saction ID . SEMICOLON
+   42         | Saction ID . Preposition State SEMICOLON
+   43         | Saction ID . FOR NUM TIME SEMICOLON
+
+    SEMICOLON  shift, and go to state 85
+    FOR        shift, and go to state 86
+    TO         shift, and go to state 66
+    INTO       shift, and go to state 67
+    WHEN       shift, and go to state 68
+    UNTIL      shift, and go to state 69
+    AFTER      shift, and go to state 70
+
+    Preposition  go to state 87
+
+
+State 77
+
+   40 StepStmt: Saction NUM . UNIT ID SEMICOLON
+
+    UNIT  shift, and go to state 88
+
+
+State 78
+
+   33 PrepStmt: PACTION ID FOR NUM . TIME SEMICOLON
+
+    TIME  shift, and go to state 89
+
+
+State 79
+
+   55 State: UNIT .
+
+    $default  reduce using rule 55 (State)
+
+
+State 80
+
+   53 State: BECOME . ADJECTIVE
+   54      | BECOME . UNIT
+
+    ADJECTIVE  shift, and go to state 90
+    UNIT       shift, and go to state 91
+
+
+State 81
+
+   32 PrepStmt: PACTION ID Preposition State . SEMICOLON
+
+    SEMICOLON  shift, and go to state 92
+
+
+State 82
+
+   30 PrepStmt: PACTION NUM UNIT ID . SEMICOLON
+
+    SEMICOLON  shift, and go to state 93
+
+
+State 83
+
+   45 BLOCK: LC . StepStmts RC
+
+    error    shift, and go to state 55
+    SACTION  shift, and go to state 56
+    LEVEL    shift, and go to state 57
+    UACTION  shift, and go to state 58
+
+    RC  reduce using rule 35 (StepStmts)
+
+    StepStmts     go to state 94
+    StepSentence  go to state 60
+    StepStmt      go to state 61
+    Saction       go to state 62
+
+
+State 84
+
+   44 StepStmt: LEVEL FLAME BLOCK .
+
+    $default  reduce using rule 44 (StepStmt)
+
+
+State 85
+
+   41 StepStmt: Saction ID SEMICOLON .
+
+    $default  reduce using rule 41 (StepStmt)
+
+
+State 86
+
+   43 StepStmt: Saction ID FOR . NUM TIME SEMICOLON
+
+    NUM  shift, and go to state 95
+
+
+State 87
+
+   42 StepStmt: Saction ID Preposition . State SEMICOLON
+
+    UNIT    shift, and go to state 79
+    BECOME  shift, and go to state 80
+
+    State  go to state 96
+
+
+State 88
+
+   40 StepStmt: Saction NUM UNIT . ID SEMICOLON
+
+    ID  shift, and go to state 97
+
+
+State 89
+
+   33 PrepStmt: PACTION ID FOR NUM TIME . SEMICOLON
+
+    SEMICOLON  shift, and go to state 98
+
+
+State 90
+
+   53 State: BECOME ADJECTIVE .
+
+    $default  reduce using rule 53 (State)
+
+
+State 91
+
+   54 State: BECOME UNIT .
+
+    $default  reduce using rule 54 (State)
+
+
+State 92
+
+   32 PrepStmt: PACTION ID Preposition State SEMICOLON .
+
+    $default  reduce using rule 32 (PrepStmt)
+
+
+State 93
+
+   30 PrepStmt: PACTION NUM UNIT ID SEMICOLON .
+
+    $default  reduce using rule 30 (PrepStmt)
+
+
+State 94
+
+   45 BLOCK: LC StepStmts . RC
+
+    RC  shift, and go to state 99
+
+
+State 95
+
+   43 StepStmt: Saction ID FOR NUM . TIME SEMICOLON
+
+    TIME  shift, and go to state 100
+
+
+State 96
+
+   42 StepStmt: Saction ID Preposition State . SEMICOLON
+
+    SEMICOLON  shift, and go to state 101
+
+
+State 97
+
+   40 StepStmt: Saction NUM UNIT ID . SEMICOLON
+
+    SEMICOLON  shift, and go to state 102
+
+
+State 98
+
+   33 PrepStmt: PACTION ID FOR NUM TIME SEMICOLON .
+
+    $default  reduce using rule 33 (PrepStmt)
+
+
+State 99
+
+   45 BLOCK: LC StepStmts RC .
+
+    $default  reduce using rule 45 (BLOCK)
+
+
+State 100
+
+   43 StepStmt: Saction ID FOR NUM TIME . SEMICOLON
+
+    SEMICOLON  shift, and go to state 103
+
+
+State 101
+
+   42 StepStmt: Saction ID Preposition State SEMICOLON .
+
+    $default  reduce using rule 42 (StepStmt)
+
+
+State 102
+
+   40 StepStmt: Saction NUM UNIT ID SEMICOLON .
+
+    $default  reduce using rule 40 (StepStmt)
+
+
+State 103
+
+   43 StepStmt: Saction ID FOR NUM TIME SEMICOLON .
+
+    $default  reduce using rule 43 (StepStmt)
