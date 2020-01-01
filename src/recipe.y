@@ -140,7 +140,7 @@ int main(int argc, char** argv)
 {
 	FILE *f;
 	if(argc <= 1)
-		f = fopen("../test/1.cb", "r");
+		f = fopen("../test/1.rec", "r");
 	else {
 		f = fopen(argv[1], "r");
 	}
