@@ -73,18 +73,18 @@
 	#include <stdbool.h>
 	#include <stdarg.h>
 	#include "lex.yy.c"
-	int yylex();
-	int yyerror(const char *s);
 	int tableSize = 0;
-
+	bool tableEmpty = true;
 	typedef struct TableElem
 	{
-		char * type;
-		char * id;
-		bool prepared;
+	    char * type;
+	    char * id;
+	    bool prepared;
 	}TableElem;
-	TableElem SymbolTable[100];
 
+	TableElem SymbolTable[100];
+	int yylex();
+	int yyerror(const char *s);
 	void AddElement(char * type, char * ids);
 	bool CheckDeclared(char * id);
 	void SetPrepared(char * id);
@@ -1439,26 +1439,62 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
+  case 6:
+#line 54 "../src/recipe.y"
+    { yyval = StrCat(2, yyvsp[-2], yyvsp[-1]); AddElement(yyvsp[-2], yyvsp[-1]);}
+#line 1446 "syntax.tab.c"
+    break;
+
+  case 9:
+#line 59 "../src/recipe.y"
+    { yyval = StrCat(1, yyvsp[0]); }
+#line 1452 "syntax.tab.c"
+    break;
+
+  case 10:
+#line 60 "../src/recipe.y"
+    { yyval = StrCat(1, yyvsp[0]); }
+#line 1458 "syntax.tab.c"
+    break;
+
+  case 11:
+#line 61 "../src/recipe.y"
+    { yyval = StrCat(1, yyvsp[0]); }
+#line 1464 "syntax.tab.c"
+    break;
+
+  case 12:
+#line 64 "../src/recipe.y"
+    { yyval = StrCat(1, yyvsp[0]); }
+#line 1470 "syntax.tab.c"
+    break;
+
+  case 13:
+#line 65 "../src/recipe.y"
+    { yyval = StrCat(2, yyvsp[-2], yyvsp[-1]); }
+#line 1476 "syntax.tab.c"
+    break;
+
   case 15:
 #line 72 "../src/recipe.y"
-    {/*add id into name array*/}
-#line 1446 "syntax.tab.c"
+    { yyval = StrCat(1, yyvsp[0]); }
+#line 1482 "syntax.tab.c"
     break;
 
   case 16:
 #line 73 "../src/recipe.y"
-    {}
-#line 1452 "syntax.tab.c"
+    { yyval = StrCat(2, yyvsp[-1], yyvsp[0]); }
+#line 1488 "syntax.tab.c"
     break;
 
   case 23:
 #line 87 "../src/recipe.y"
     {/*check id exist*/}
-#line 1458 "syntax.tab.c"
+#line 1494 "syntax.tab.c"
     break;
 
 
-#line 1462 "syntax.tab.c"
+#line 1498 "syntax.tab.c"
 
       default: break;
     }
@@ -1705,52 +1741,66 @@ int yyerror(const char *s)
 	return 0;
 }
 
-void AddElement(char * type, char * ids) {
-	TableElem e;
-	char *id = NULL;
-	id = strtok(ids, ",");
-	while( id != NULL) {
-		if(!CheckDeclared(id)) {
-			e.type = type;
-			e.id = id;
-			e.prepared = false;
-			SymbolTable[tableSize] = e;
-			tableSize++;
-		}
-
-		id = strtok(ids, ",");
-	}
-}
-
 bool CheckDeclared(char * id) {
-	for(int i = 0; i < tableSize; i++)
-		if(strcmp(SymbolTable[i].id, id) == 0) {
-			char * msg = strcat("redefinition of ", id);
-			yyerror(msg);
-			return true;
-		}
+    for(int i = 0; i < tableSize; i++)
+        if(strcmp(SymbolTable[i].id, id) == 0) {
+            char * msg = (char *)malloc(100);
+            strcpy(msg, "redefinition of ");
+            msg = strcat(msg, id);
+            yyerror(msg);
+            return true;
+        }
 
-	return false;
-}
-
-void SetPrepared(char * id) {
-	for(int i = 0; i < tableSize; i++)
-		if(strcmp(SymbolTable[i].id, id) == 0) {
-			SymbolTable[i].prepared = true;
-		}
+    return false;
 }
 
 bool CheckPrepared(char * type, char * id) {
-	for(int i = 0; i < tableSize; i++)
-		if(strcmp(SymbolTable[i].type, "seasoning") != 0 &&
-		   strcmp(SymbolTable[i].id, id) == 0 &&
-		   SymbolTable[i].prepared == false) {
-			char * msg = strcat("please prepare ", id);
-			msg = strcat(msg, " before using it.");
-			yyerror(msg);
-			return false;
-		}
-	return true;
+    for(int i = 0; i < tableSize; i++)
+        if(strcmp(SymbolTable[i].type, "seasoning") != 0 &&
+           strcmp(SymbolTable[i].id, id) == 0 &&
+           !SymbolTable[i].prepared) {
+            char * msg = (char *)malloc(100);
+            msg = strcat(msg, id);
+            msg = strcat(msg, " before using it.");
+            yyerror(msg);
+            free(msg);
+            return false;
+        }
+    return true;
+}
+
+void AddElement(char * type, char *ids) {
+    TableElem e;
+    char *id = NULL;
+    char *s = (char *)malloc(1000);
+    strcpy(s, ids);
+    id = strtok(s, " ");
+    while( id != NULL) {
+        if(tableEmpty) {
+            tableEmpty = false;
+            e.type = type;
+            e.id = id;
+            e.prepared = false;
+            SymbolTable[tableSize] = e;
+            tableSize++;
+        }
+        else if(!CheckDeclared(id)) {
+            e.type = type;
+            e.id = id;
+            e.prepared = false;
+            SymbolTable[tableSize] = e;
+            tableSize++;
+        }
+
+        id = strtok(NULL, " ");
+    }
+}
+
+void SetPrepared(char * id) {
+    for(int i = 0; i < tableSize; i++)
+        if(strcmp(SymbolTable[i].id, id) == 0) {
+            SymbolTable[i].prepared = true;
+        }
 }
 
 char* StrCat(int n, ...) {

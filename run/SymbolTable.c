@@ -1,6 +1,14 @@
 #include "SymbolTable.h"
 #include <string.h>
 
+typedef struct TableElem
+{
+	char * type;
+	char * id;
+	bool prepared;
+}TableElem;
+
+TableElem SymbolTable[100];
 void AddElement(char * type, char * ids) {
 	TableElem e;
 	char *id = NULL;
@@ -47,4 +55,10 @@ bool CheckPrepared(char * type, char * id) {
 			yyerror(msg);
 			return false;
 		}
+}
+
+int main(int argc, char const *argv[])
+{
+	
+	return 0;
 }
