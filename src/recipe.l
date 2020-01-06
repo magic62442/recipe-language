@@ -23,7 +23,7 @@ word		([a-zA-Z])+
 
 	/*numbers*/
 
-{non_zero}{digits}|{digit}      { yylval.number = atoi(yytext); return NUM; }
+{non_zero}{digits}|{digit}      { yylval = strdup(yytext); return NUM; }
 
 	/*characters*/
 
@@ -40,42 +40,42 @@ word		([a-zA-Z])+
 
 
 
-(take|peel|soak|cut|chop|beat|stir) { return PACTION; }
-(pour|scramble|mix|fry|steam|roast|braise|simmer) { return SACTION; }
-(low|medium|high) { return LEVEL; }
-(red|boiled|watery) { return ADJECTIVE; }
-(minutes|seconds|hours) { return TIME; }
-(g|tablespoons|bags|packs|bars|pieces|segments|drops|bowlsslices|dices|chunks|shreds) { return UNIT; }
+(take|peel|soak|cut|chop|beat|stir) { yylval = strdup(yytext); return PACTION; }
+(pour|scramble|mix|fry|steam|roast|braise|simmer) { yylval = strdup(yytext); return SACTION; }
+(low|medium|high) { yylval = strdup(yytext); return LEVEL; }
+(red|boiled|watery) { yylval = strdup(yytext); return ADJECTIVE; }
+(minutes|seconds|hours) { yylval = strdup(yytext); return TIME; }
+(g|tablespoons|bags|packs|bars|pieces|segments|drops|bowlsslices|dices|chunks|shreds) { yylval = strdup(yytext); return UNIT; }
 
 	/*key words*/ 
-	/*yylval.str = strdup(yytext);*/
+	/*yylval = strdup(yytext);*/
 
-name		   { return NAMEBEGIN; }
-declarations   { return DECLBEGIN; }
-ingredients	   { return INGRBEGIN; }
-preparations   { return PREPBEGIN; }
-steps		   { return STEPBEGIN; }
-to             { return TO; }
-into		   { return INTO; }
-when		   { return WHEN; }
-until		   { return UNTIL; }
-after		   { return AFTER; }
-become		   { return BECOME; }
-flame		   { return FLAME; }
+name		   { yylval = strdup(yytext); return NAMEBEGIN; }
+declarations   { yylval = strdup(yytext); return DECLBEGIN; }
+ingredients	   { yylval = strdup(yytext); return INGRBEGIN; }
+preparations   { yylval = strdup(yytext); return PREPBEGIN; }
+steps		   { yylval = strdup(yytext); return STEPBEGIN; }
+to             { yylval = strdup(yytext); return TO; }
+into		   { yylval = strdup(yytext); return INTO; }
+when		   { yylval = strdup(yytext); return WHEN; }
+until		   { yylval = strdup(yytext); return UNTIL; }
+after		   { yylval = strdup(yytext); return AFTER; }
+become		   { yylval = strdup(yytext); return BECOME; }
+flame		   { yylval = strdup(yytext); return FLAME; }
 
 	/*types*/ 
 
-vegetable	   { return VEGETABLE; }
-meat		   { return MEAT; }
-seasoning	   { return SEASONING; }
+vegetable	   { yylval = strdup(yytext); return VEGETABLE; }
+meat		   { yylval = strdup(yytext); return MEAT; }
+seasoning	   { yylval = strdup(yytext); return SEASONING; }
 
 	/*identifiers*/ 
 
-{word}		   { yylval.id = strdup(yytext); return ID; }
+{word}		   { yylval = strdup(yytext); return ID; }
 
 	/*user defined actions*/ 
 
-[\"]{word}[\"] { yylval.uaction = strdup(yytext); return UACTION; }
+[\"]{word}[\"] { yylval = strdup(yytext); return UACTION; }
 
 	/*notes*/ 
 
@@ -83,7 +83,7 @@ seasoning	   { return SEASONING; }
 
 	/*others*/
 
-.      		   { printf("Error at line %d: unexpected \'%s\' \n", yylineno, yytext); }
+.      		   { printf("Lexical Error at line %d: unexpected \'%s\' \n", yylineno, yytext); }
 
 
 

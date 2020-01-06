@@ -1,7 +1,7 @@
 // cookbook
 
 declarations:
-	vegetable tomatoes;
+	vegetable tomatoes, tomatoes;
 	meat eggs;
 
 name: tomatoes and eggs;
@@ -16,4 +16,4 @@ preparations:
 steps:
 	fry egg with;
 	"make" tomatoes;
-	李祺彦
+	--
