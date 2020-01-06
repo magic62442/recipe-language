@@ -913,7 +913,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 27 "../src/recipe.l"
-{ yylval.number = atoi(yytext); return NUM; }
+{ yylval = strdup(yytext); return NUM; }
 	YY_BREAK
 /*characters*/
 case 2:
@@ -961,122 +961,122 @@ YY_RULE_SETUP
 case 10:
 YY_RULE_SETUP
 #line 44 "../src/recipe.l"
-{ return PACTION; }
+{ yylval = strdup(yytext); return PACTION; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 45 "../src/recipe.l"
-{ return SACTION; }
+{ yylval = strdup(yytext); return SACTION; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 46 "../src/recipe.l"
-{ return LEVEL; }
+{ yylval = strdup(yytext); return LEVEL; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 47 "../src/recipe.l"
-{ return ADJECTIVE; }
+{ yylval = strdup(yytext); return ADJECTIVE; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 48 "../src/recipe.l"
-{ return TIME; }
+{ yylval = strdup(yytext); return TIME; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 49 "../src/recipe.l"
-{ return UNIT; }
+{ yylval = strdup(yytext); return UNIT; }
 	YY_BREAK
 /*key words*/ 
-/*yylval.str = strdup(yytext);*/
+/*yylval = strdup(yytext);*/
 case 16:
 YY_RULE_SETUP
 #line 54 "../src/recipe.l"
-{ return NAMEBEGIN; }
+{ yylval = strdup(yytext); return NAMEBEGIN; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 55 "../src/recipe.l"
-{ return DECLBEGIN; }
+{ yylval = strdup(yytext); return DECLBEGIN; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 56 "../src/recipe.l"
-{ return INGRBEGIN; }
+{ yylval = strdup(yytext); return INGRBEGIN; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 57 "../src/recipe.l"
-{ return PREPBEGIN; }
+{ yylval = strdup(yytext); return PREPBEGIN; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 58 "../src/recipe.l"
-{ return STEPBEGIN; }
+{ yylval = strdup(yytext); return STEPBEGIN; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 59 "../src/recipe.l"
-{ return TO; }
+{ yylval = strdup(yytext); return TO; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 60 "../src/recipe.l"
-{ return INTO; }
+{ yylval = strdup(yytext); return INTO; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 61 "../src/recipe.l"
-{ return WHEN; }
+{ yylval = strdup(yytext); return WHEN; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 62 "../src/recipe.l"
-{ return UNTIL; }
+{ yylval = strdup(yytext); return UNTIL; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 63 "../src/recipe.l"
-{ return AFTER; }
+{ yylval = strdup(yytext); return AFTER; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 64 "../src/recipe.l"
-{ return BECOME; }
+{ yylval = strdup(yytext); return BECOME; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 65 "../src/recipe.l"
-{ return FLAME; }
+{ yylval = strdup(yytext); return FLAME; }
 	YY_BREAK
 /*types*/ 
 case 28:
 YY_RULE_SETUP
 #line 69 "../src/recipe.l"
-{ return VEGETABLE; }
+{ yylval = strdup(yytext); return VEGETABLE; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 70 "../src/recipe.l"
-{ return MEAT; }
+{ yylval = strdup(yytext); return MEAT; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 71 "../src/recipe.l"
-{ return SEASONING; }
+{ yylval = strdup(yytext); return SEASONING; }
 	YY_BREAK
 /*identifiers*/ 
 case 31:
 YY_RULE_SETUP
 #line 75 "../src/recipe.l"
-{ yylval.id = strdup(yytext); return ID; }
+{ yylval = strdup(yytext); return ID; }
 	YY_BREAK
 /*user defined actions*/ 
 case 32:
 YY_RULE_SETUP
 #line 79 "../src/recipe.l"
-{ yylval.uaction = strdup(yytext); return UACTION; }
+{ yylval = strdup(yytext); return UACTION; }
 	YY_BREAK
 /*notes*/ 
 case 33:
@@ -1088,7 +1088,7 @@ YY_RULE_SETUP
 case 34:
 YY_RULE_SETUP
 #line 87 "../src/recipe.l"
-{ printf("Error at line %d: unexpected \'%s\' \n", yylineno, yytext); }
+{ printf("Lexical Error at line %d: unexpected \'%s\' \n", yylineno, yytext); }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP

@@ -70,11 +70,29 @@
 
 	#include <stdio.h>
 	#include <stdlib.h>
+	#include <stdbool.h>
+	#include <stdarg.h>
 	#include "lex.yy.c"
 	int yylex();
 	int yyerror(const char *s);
+	int tableSize = 0;
 
-#line 78 "syntax.tab.c"
+	typedef struct TableElem
+	{
+		char * type;
+		char * id;
+		bool prepared;
+	}TableElem;
+	TableElem SymbolTable[100];
+
+	void AddElement(char * type, char * ids);
+	bool CheckDeclared(char * id);
+	void SetPrepared(char * id);
+	bool CheckPrepared(char * type, char * id);
+	char* StrCat(int n, ...);
+	/*char * sentence*/
+
+#line 96 "syntax.tab.c"
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus
@@ -148,18 +166,7 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-union YYSTYPE
-{
-#line 18 "../src/recipe.y"
-
-	char * id;
-	char * uaction;
-    int number;
-
-#line 160 "syntax.tab.c"
-
-};
-typedef union YYSTYPE YYSTYPE;
+typedef char* YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
@@ -480,12 +487,12 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    30,    30,    33,    36,    37,    40,    41,    42,    45,
-      46,    47,    50,    51,    54,    57,    58,    61,    64,    65,
-      68,    69,    70,    72,    73,    76,    79,    80,    83,    84,
-      85,    88,    89,    90,    91,    94,    97,    98,   101,   102,
-     103,   106,   107,   108,   109,   110,   113,   116,   117,   120,
-     121,   122,   123,   124,   127,   128,   129
+       0,    44,    44,    47,    50,    51,    54,    55,    56,    59,
+      60,    61,    64,    65,    68,    72,    73,    76,    79,    80,
+      83,    84,    85,    87,    88,    91,    94,    95,    98,    99,
+     100,   103,   104,   105,   106,   109,   112,   113,   116,   117,
+     118,   121,   122,   123,   124,   125,   128,   131,   132,   135,
+     136,   137,   138,   139,   142,   143,   144
 };
 #endif
 
@@ -1432,8 +1439,26 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
+  case 15:
+#line 72 "../src/recipe.y"
+    {/*add id into name array*/}
+#line 1446 "syntax.tab.c"
+    break;
 
-#line 1437 "syntax.tab.c"
+  case 16:
+#line 73 "../src/recipe.y"
+    {}
+#line 1452 "syntax.tab.c"
+    break;
+
+  case 23:
+#line 87 "../src/recipe.y"
+    {/*check id exist*/}
+#line 1458 "syntax.tab.c"
+    break;
+
+
+#line 1462 "syntax.tab.c"
 
       default: break;
     }
@@ -1671,7 +1696,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 131 "../src/recipe.y"
+#line 146 "../src/recipe.y"
 
 
 int yyerror(const char *s)
@@ -1680,8 +1705,74 @@ int yyerror(const char *s)
 	return 0;
 }
 
+void AddElement(char * type, char * ids) {
+	TableElem e;
+	char *id = NULL;
+	id = strtok(ids, ",");
+	while( id != NULL) {
+		if(!CheckDeclared(id)) {
+			e.type = type;
+			e.id = id;
+			e.prepared = false;
+			SymbolTable[tableSize] = e;
+			tableSize++;
+		}
+
+		id = strtok(ids, ",");
+	}
+}
+
+bool CheckDeclared(char * id) {
+	for(int i = 0; i < tableSize; i++)
+		if(strcmp(SymbolTable[i].id, id) == 0) {
+			char * msg = strcat("redefinition of ", id);
+			yyerror(msg);
+			return true;
+		}
+
+	return false;
+}
+
+void SetPrepared(char * id) {
+	for(int i = 0; i < tableSize; i++)
+		if(strcmp(SymbolTable[i].id, id) == 0) {
+			SymbolTable[i].prepared = true;
+		}
+}
+
+bool CheckPrepared(char * type, char * id) {
+	for(int i = 0; i < tableSize; i++)
+		if(strcmp(SymbolTable[i].type, "seasoning") != 0 &&
+		   strcmp(SymbolTable[i].id, id) == 0 &&
+		   SymbolTable[i].prepared == false) {
+			char * msg = strcat("please prepare ", id);
+			msg = strcat(msg, " before using it.");
+			yyerror(msg);
+			return false;
+		}
+	return true;
+}
+
+char* StrCat(int n, ...) {
+    va_list ap;
+    va_start(ap, n);
+    char * rst = (char *)malloc(1000);
+    for (int i = 0; i < n; ++i)
+    {
+        char * s = va_arg(ap, char *);
+        strcat(rst, s);
+        if(i != n - 1)
+            strcat(rst, " ");
+    }
+
+    return rst;
+}
+
 int main(int argc, char** argv)
 {
+	// #ifdef YYDEBUG
+	// 	yydebug = 1;
+	// #endif
 	FILE *f;
 	if(argc <= 1)
 		f = fopen("../test/1.rec", "r");

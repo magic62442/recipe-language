@@ -84,18 +84,7 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-union YYSTYPE
-{
-#line 18 "../src/recipe.y"
-
-	char * id;
-	char * uaction;
-    int number;
-
-#line 96 "syntax.tab.h"
-
-};
-typedef union YYSTYPE YYSTYPE;
+typedef char* YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
