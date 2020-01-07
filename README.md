@@ -22,17 +22,14 @@ Minimum requirement:
 
 ./run/: executable and other outputs of flex and bison. 
 
-​		syntax.output: a detailed description of the LALR(1) table of the grammar
-
-​		lex.yy.c: the lexical analyzer
-
-​		syntax.tab.c: the grammar and semantic analyzer
-
-​		parser: the executable
+- ​		syntax.output: a detailed description of the LALR(1) table of the grammar
+- ​		lex.yy.c: the lexical analyzer
+- ​		syntax.tab.c: the grammar and semantic analyzer
+- ​		parser: the executable
 
 ./output/: storing actions of each food in recipes. For example:
 
-​		tomatoes.txt: storing actions on tomatoes in all input recipes.
+- ​		tomatoes.txt: storing actions on tomatoes in all input recipes.
 
 ## Build and Run
 
@@ -77,8 +74,8 @@ in recipe "tomatoes and eggs":
 
 There are four main tasks of semantic analysis:
 
-- Check whether an identifier is declared before using it
-- Check whether an identifier is redefined
-- Check whether vegetables and meat are prepared before using them
-- Storing actions on foods
+- [ ] Check whether an identifier is declared before using it
+- [ ] Check whether an identifier is redefined
+- [ ] Check whether vegetables and meat are prepared before using them
+- [ ] Storing actions on foods
 
