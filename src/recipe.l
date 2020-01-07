@@ -33,17 +33,15 @@ word		([a-zA-Z])+
 "{"			   { return LC; }
 "}"			   { return RC; }
 \n 			   { yycolumn = 1; }
-[ \t]   { /* ignore white space */ }
+[ \t]          { /* ignore white space */ }
 "/*"(.)*"*/"   { /* ignore notes */ }
+
 	/*actions, units, adjectives, levels*/ 
-
-
-
 
 (take|peel|soak|cut|chop|beat|stir) { yylval = strdup(yytext); return PACTION; }
 (pour|scramble|mix|fry|steam|roast|braise|simmer) { yylval = strdup(yytext); return SACTION; }
 (low|medium|high) { yylval = strdup(yytext); return LEVEL; }
-(red|boiled|watery) { yylval = strdup(yytext); return ADJECTIVE; }
+(red|boiled|watery|solid) { yylval = strdup(yytext); return ADJECTIVE; }
 (minutes|seconds|hours) { yylval = strdup(yytext); return TIME; }
 (g|tablespoons|bags|packs|bars|pieces|segments|drops|bowlsslices|dices|chunks|shreds) { yylval = strdup(yytext); return UNIT; }
 
@@ -56,6 +54,7 @@ ingredients	   { yylval = strdup(yytext); return INGRBEGIN; }
 preparations   { yylval = strdup(yytext); return PREPBEGIN; }
 steps		   { yylval = strdup(yytext); return STEPBEGIN; }
 to             { yylval = strdup(yytext); return TO; }
+with		   { yylval = strdup(yytext); return WITH; }
 into		   { yylval = strdup(yytext); return INTO; }
 when		   { yylval = strdup(yytext); return WHEN; }
 until		   { yylval = strdup(yytext); return UNTIL; }

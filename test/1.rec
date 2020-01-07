@@ -3,17 +3,19 @@
 declarations:
 	vegetable tomatoes, tomatoes;
 	meat eggs;
+	seasoning oil;
 
 name: tomatoes and eggs;
 
 ingredients:
-	tomato packs;
+	tomatoes 2 packs;
+	potatoes 500 g;
 
 preparations:
 	cut tomatoes into pieces;
-	haha;
 
 steps:
-	fry egg with;
+	pour oil;
+	fry eggs until become solid;
 	"make" tomatoes;
 	--

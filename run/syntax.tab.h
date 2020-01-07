@@ -38,7 +38,7 @@
 # define YY_YY_SYNTAX_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -66,19 +66,20 @@ extern int yydebug;
     FOR = 272,
     TO = 273,
     INTO = 274,
-    WHEN = 275,
-    UNTIL = 276,
-    AFTER = 277,
-    BECOME = 278,
-    FLAME = 279,
-    VEGETABLE = 280,
-    MEAT = 281,
-    SEASONING = 282,
-    LC = 283,
-    RC = 284,
-    ID = 285,
-    UACTION = 286,
-    NUM = 287
+    WITH = 275,
+    WHEN = 276,
+    UNTIL = 277,
+    AFTER = 278,
+    BECOME = 279,
+    FLAME = 280,
+    VEGETABLE = 281,
+    MEAT = 282,
+    SEASONING = 283,
+    LC = 284,
+    RC = 285,
+    ID = 286,
+    UACTION = 287,
+    NUM = 288
   };
 #endif
 

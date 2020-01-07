@@ -8,30 +8,31 @@
 	#include "lex.yy.c"
 	int tableSize = 0;
 	bool tableEmpty = true;
+	char * dishName;
 	typedef struct TableElem
 	{
 	    char * type;
 	    char * id;
 	    bool prepared;
 	}TableElem;
-
 	TableElem SymbolTable[100];
+
 	int yylex();
 	int yyerror(const char *s);
 	void AddElement(char * type, char * ids);
-	bool CheckDeclared(char * id);
+	bool CheckDeclared(char * id, int type);
 	void SetPrepared(char * id);
-	bool CheckPrepared(char * type, char * id);
+	bool CheckPrepared(char * id);
 	char* StrCat(int n, ...);
-	/*char * sentence*/
+	void WriteRecord(const char *id, const char * line);
 %}
 
 %token SEMICOLON COLON COMMA
 %token SACTION PACTION ADJECTIVE UNIT LEVEL TIME
-%token NAMEBEGIN DECLBEGIN INGRBEGIN PREPBEGIN STEPBEGIN FOR TO INTO WHEN UNTIL AFTER BECOME FLAME
-%token VEGETABLE 
-%token MEAT 
-%token SEASONING 
+%token NAMEBEGIN DECLBEGIN INGRBEGIN PREPBEGIN STEPBEGIN 
+%token FOR TO INTO WITH WHEN UNTIL AFTER 
+%token BECOME FLAME
+%token VEGETABLE MEAT SEASONING 
 %token LC RC
 %token ID UACTION NUM
 
@@ -65,8 +66,9 @@ IdList : ID      { $$ = StrCat(1, $1); }
 	| ID COMMA IdList  { $$ = StrCat(2, $1, $2); }
 	;
 
-DishName : NAMEBEGIN COLON Name SEMICOLON 
+DishName : NAMEBEGIN COLON Name SEMICOLON { $$ = strdup($3); dishName = $$; }
 	;
+
 
 
 Name : ID { $$ = StrCat(1, $1); }
@@ -84,8 +86,8 @@ IngredientSentence : Ingredient
 	| error SEMICOLON
 	| error
 
-Ingredient : ID NUM UNIT SEMICOLON {/*check id exist*/}
-	| ID SEMICOLON
+Ingredient : ID NUM UNIT SEMICOLON { $$ = StrCat(3, $1, $2, $3, $3); CheckDeclared($1, 2); }
+	| ID SEMICOLON { $$ = StrCat(1, $1); CheckDeclared($1, 2); }
 	;
 
 Preparations : PREPBEGIN COLON PrepStmts
@@ -100,10 +102,46 @@ PrepSentence : PrepStmt
 	| error
 	;
 
-PrepStmt : PACTION NUM UNIT ID SEMICOLON
-	| PACTION ID SEMICOLON
-	| PACTION ID Preposition State SEMICOLON
-	| PACTION ID FOR NUM TIME SEMICOLON
+PrepStmt : 
+	PACTION NUM UNIT ID SEMICOLON
+	{ 
+		$$ = StrCat(4, $1, $2, $3, $4); 
+	    if(CheckDeclared($4, 2)) 
+	    { 
+	   	    SetPrepared($4); 
+	   	    WriteRecord($4, $$);
+	    } 
+	}
+
+	| PACTION ID SEMICOLON 
+	{ 
+		$$ = StrCat(2, $1, $2); 
+	    if(CheckDeclared($2, 2)) 
+	    { 
+	   	    SetPrepared($2); 
+	   	    WriteRecord($2, $$);
+	    } 
+	}
+
+	| PACTION ID Preposition State SEMICOLON 
+	{ 
+		$$ = StrCat(4, $1, $2, $3, $4); 
+	    if(CheckDeclared($2, 2)) 
+	    { 
+	   	    SetPrepared($2); 
+	   	    WriteRecord($2, $$);
+	    } 
+	}
+
+	| PACTION ID FOR NUM TIME SEMICOLON 
+	{ 
+		$$ = StrCat(5, $1, $2, $3, $4, $5); 
+	    if(CheckDeclared($2, 2)) 
+	    { 
+	   	    SetPrepared($2); 
+	   	    WriteRecord($2, $$);
+	    } 
+	}
 	;
 
 Steps : STEPBEGIN COLON StepStmts
@@ -118,10 +156,43 @@ StepSentence : StepStmt
 	| error
 	;
 
-StepStmt : Saction NUM UNIT ID SEMICOLON
+StepStmt : 
+	Saction NUM UNIT ID SEMICOLON
+	{ 
+		$$ = StrCat(4, $1, $2, $3, $4); 
+	    if(CheckDeclared($4, 2) && CheckPrepared($4)) 
+	    { 
+	   	    WriteRecord($4, $$);
+	    } 
+	}
+
 	| Saction ID SEMICOLON 
-	| Saction ID Preposition State SEMICOLON
-	| Saction ID FOR NUM TIME SEMICOLON
+	{ 
+		$$ = StrCat(2, $1, $2); 
+	    if(CheckDeclared($2, 2) && CheckPrepared($2)) 
+	    { 
+	   	    WriteRecord($2, $$);
+	    } 
+	}
+
+	| Saction ID Preposition State SEMICOLON 
+	{ 
+		$$ = StrCat(4, $1, $2, $3, $4); 
+	    if(CheckDeclared($2, 2) && CheckPrepared($2)) 
+	    { 
+	   	    WriteRecord($2, $$);
+	    } 
+	}
+
+	| Saction ID FOR NUM TIME SEMICOLON 
+	{ 
+		$$ = StrCat(5, $1, $2, $3, $4, $5); 
+	    if(CheckDeclared($2, 2) && CheckPrepared($2)) 
+	    { 
+	   	    WriteRecord($2, $$);
+	    } 
+	}
+
 	| LEVEL FLAME BLOCK
 	;
 
@@ -134,6 +205,7 @@ Saction : SACTION
 
 Preposition : TO
 	| INTO
+	| WITH
 	| WHEN
 	| UNTIL
 	| AFTER
@@ -151,27 +223,43 @@ int yyerror(const char *s)
 	return 0;
 }
 
-bool CheckDeclared(char * id) {
-    for(int i = 0; i < tableSize; i++)
-        if(strcmp(SymbolTable[i].id, id) == 0) {
-            char * msg = (char *)malloc(100);
-            strcpy(msg, "redefinition of ");
-            msg = strcat(msg, id);
-            yyerror(msg);
-            return true;
-        }
+bool CheckDeclared(char * id, int type) {
+    if(type == 1) {
+        for(int i = 0; i < tableSize; i++)
+            if(strcmp(SymbolTable[i].id, id) == 0) {
+                char * msg = (char *)malloc(100);
+                strcpy(msg, "redefinition of ");
+                msg = strcat(msg, id);
+                yyerror(msg);
+                free(msg);
+                return true;
+            }
 
-    return false;
+        return false;
+    }
+    else {
+        for(int i = 0; i < tableSize; i++)
+            if(strcmp(SymbolTable[i].id, id) == 0) {
+                return true;
+            }
+        char * msg = (char *)malloc(100);
+        strcpy(msg, "undeclared identifier ");
+        msg = strcat(msg, id);
+        yyerror(msg);
+        free(msg);
+        return false;
+    }
 }
 
-bool CheckPrepared(char * type, char * id) {
+bool CheckPrepared(char * id) {
     for(int i = 0; i < tableSize; i++)
         if(strcmp(SymbolTable[i].type, "seasoning") != 0 &&
            strcmp(SymbolTable[i].id, id) == 0 &&
            !SymbolTable[i].prepared) {
             char * msg = (char *)malloc(100);
+            strcpy(msg, "using ");
             msg = strcat(msg, id);
-            msg = strcat(msg, " before using it.");
+            msg = strcat(msg, " without preparing them.");
             yyerror(msg);
             free(msg);
             return false;
@@ -194,7 +282,7 @@ void AddElement(char * type, char *ids) {
             SymbolTable[tableSize] = e;
             tableSize++;
         }
-        else if(!CheckDeclared(id)) {
+        else if(!CheckDeclared(id, 1)) {
             e.type = type;
             e.id = id;
             e.prepared = false;
@@ -226,6 +314,18 @@ char* StrCat(int n, ...) {
     }
 
     return rst;
+}
+
+void WriteRecord(const char *id, const char * line) {
+    char * filename = (char*)malloc(100);
+    filename[0] = '\0';
+    strcat(filename, "../output/");
+    strcat(filename, id);
+    strcat(filename, ".txt");
+    FILE * f = fopen(filename, "a");
+    fprintf(f, "in recipe \"%s\": \n", dishName);
+    fprintf(f, "\t%s\n\n", line);
+    fclose(f);
 }
 
 int main(int argc, char** argv)

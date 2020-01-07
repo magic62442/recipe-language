@@ -73,13 +73,14 @@ Grammar
 
    48 Preposition: TO
    49            | INTO
-   50            | WHEN
-   51            | UNTIL
-   52            | AFTER
+   50            | WITH
+   51            | WHEN
+   52            | UNTIL
+   53            | AFTER
 
-   53 State: BECOME ADJECTIVE
-   54      | BECOME UNIT
-   55      | UNIT
+   54 State: BECOME ADJECTIVE
+   55      | BECOME UNIT
+   56      | UNIT
 
 
 Terminals, with rules where they appear
@@ -91,8 +92,8 @@ Terminals, with rules where they appear
     COMMA (260) 12
     SACTION (261) 46
     PACTION (262) 30 31 32 33
-    ADJECTIVE (263) 53
-    UNIT (264) 22 30 40 54 55
+    ADJECTIVE (263) 54
+    UNIT (264) 22 30 40 55 56
     LEVEL (265) 44
     TIME (266) 33 43
     NAMEBEGIN (267) 13
@@ -103,96 +104,97 @@ Terminals, with rules where they appear
     FOR (272) 33 43
     TO (273) 48
     INTO (274) 49
-    WHEN (275) 50
-    UNTIL (276) 51
-    AFTER (277) 52
-    BECOME (278) 53 54
-    FLAME (279) 44
-    VEGETABLE (280) 8
-    MEAT (281) 9
-    SEASONING (282) 10
-    LC (283) 45
-    RC (284) 45
-    ID (285) 11 12 14 15 22 23 30 31 32 33 40 41 42 43
-    UACTION (286) 47
-    NUM (287) 22 30 33 40 43
+    WITH (275) 50
+    WHEN (276) 51
+    UNTIL (277) 52
+    AFTER (278) 53
+    BECOME (279) 54 55
+    FLAME (280) 44
+    VEGETABLE (281) 8
+    MEAT (282) 9
+    SEASONING (283) 10
+    LC (284) 45
+    RC (285) 45
+    ID (286) 11 12 14 15 22 23 30 31 32 33 40 41 42 43
+    UACTION (287) 47
+    NUM (288) 22 30 33 40 43
 
 
 Nonterminals, with rules where they appear
 
-    $accept (33)
+    $accept (34)
         on left: 0
-    Program (34)
+    Program (35)
         on left: 1
         on right: 0
-    Declarations (35)
+    Declarations (36)
         on left: 2
         on right: 1
-    DecList (36)
+    DecList (37)
         on left: 3 4
         on right: 2 4
-    Declaration (37)
+    Declaration (38)
         on left: 5 6 7
         on right: 4
-    Type (38)
+    Type (39)
         on left: 8 9 10
         on right: 5
-    IdList (39)
+    IdList (40)
         on left: 11 12
         on right: 5 12
-    DishName (40)
+    DishName (41)
         on left: 13
         on right: 1
-    Name (41)
+    Name (42)
         on left: 14 15
         on right: 13 15
-    Ingredients (42)
+    Ingredients (43)
         on left: 16
         on right: 1
-    IngreList (43)
+    IngreList (44)
         on left: 17 18
         on right: 16 18
-    IngredientSentence (44)
+    IngredientSentence (45)
         on left: 19 20 21
         on right: 18
-    Ingredient (45)
+    Ingredient (46)
         on left: 22 23
         on right: 19
-    Preparations (46)
+    Preparations (47)
         on left: 24
         on right: 1
-    PrepStmts (47)
+    PrepStmts (48)
         on left: 25 26
         on right: 24 26
-    PrepSentence (48)
+    PrepSentence (49)
         on left: 27 28 29
         on right: 26
-    PrepStmt (49)
+    PrepStmt (50)
         on left: 30 31 32 33
         on right: 27
-    Steps (50)
+    Steps (51)
         on left: 34
         on right: 1
-    StepStmts (51)
+    StepStmts (52)
         on left: 35 36
         on right: 34 36 45
-    StepSentence (52)
+    StepSentence (53)
         on left: 37 38 39
         on right: 36
-    StepStmt (53)
+    StepStmt (54)
         on left: 40 41 42 43 44
         on right: 37
-    BLOCK (54)
+    BLOCK (55)
         on left: 45
         on right: 44
-    Saction (55)
+    Saction (56)
         on left: 46 47
         on right: 40 41 42 43
-    Preposition (56)
-        on left: 48 49 50 51 52
+    Preposition (57)
+        on left: 48 49 50 51 52 53
         on right: 32 42
-    State (57)
-        on left: 53 54 55
+    State (58)
+        on left: 54 55 56
         on right: 32 42
 
 
@@ -666,18 +668,19 @@ State 52
     FOR        shift, and go to state 65
     TO         shift, and go to state 66
     INTO       shift, and go to state 67
-    WHEN       shift, and go to state 68
-    UNTIL      shift, and go to state 69
-    AFTER      shift, and go to state 70
+    WITH       shift, and go to state 68
+    WHEN       shift, and go to state 69
+    UNTIL      shift, and go to state 70
+    AFTER      shift, and go to state 71
 
-    Preposition  go to state 71
+    Preposition  go to state 72
 
 
 State 53
 
    30 PrepStmt: PACTION NUM . UNIT ID SEMICOLON
 
-    UNIT  shift, and go to state 72
+    UNIT  shift, and go to state 73
 
 
 State 54
@@ -692,7 +695,7 @@ State 55
    38 StepSentence: error . SEMICOLON
    39             | error .
 
-    SEMICOLON  shift, and go to state 73
+    SEMICOLON  shift, and go to state 74
 
     $default  reduce using rule 39 (StepSentence)
 
@@ -708,7 +711,7 @@ State 57
 
    44 StepStmt: LEVEL . FLAME BLOCK
 
-    FLAME  shift, and go to state 74
+    FLAME  shift, and go to state 75
 
 
 State 58
@@ -737,7 +740,7 @@ State 60
     $end  reduce using rule 35 (StepStmts)
     RC    reduce using rule 35 (StepStmts)
 
-    StepStmts     go to state 75
+    StepStmts     go to state 76
     StepSentence  go to state 60
     StepStmt      go to state 61
     Saction       go to state 62
@@ -757,8 +760,8 @@ State 62
    42         | Saction . ID Preposition State SEMICOLON
    43         | Saction . ID FOR NUM TIME SEMICOLON
 
-    ID   shift, and go to state 76
-    NUM  shift, and go to state 77
+    ID   shift, and go to state 77
+    NUM  shift, and go to state 78
 
 
 State 63
@@ -779,7 +782,7 @@ State 65
 
    33 PrepStmt: PACTION ID FOR . NUM TIME SEMICOLON
 
-    NUM  shift, and go to state 78
+    NUM  shift, and go to state 79
 
 
 State 66
@@ -798,127 +801,135 @@ State 67
 
 State 68
 
-   50 Preposition: WHEN .
+   50 Preposition: WITH .
 
     $default  reduce using rule 50 (Preposition)
 
 
 State 69
 
-   51 Preposition: UNTIL .
+   51 Preposition: WHEN .
 
     $default  reduce using rule 51 (Preposition)
 
 
 State 70
 
-   52 Preposition: AFTER .
+   52 Preposition: UNTIL .
 
     $default  reduce using rule 52 (Preposition)
 
 
 State 71
 
-   32 PrepStmt: PACTION ID Preposition . State SEMICOLON
+   53 Preposition: AFTER .
 
-    UNIT    shift, and go to state 79
-    BECOME  shift, and go to state 80
-
-    State  go to state 81
+    $default  reduce using rule 53 (Preposition)
 
 
 State 72
 
-   30 PrepStmt: PACTION NUM UNIT . ID SEMICOLON
+   32 PrepStmt: PACTION ID Preposition . State SEMICOLON
 
-    ID  shift, and go to state 82
+    UNIT    shift, and go to state 80
+    BECOME  shift, and go to state 81
+
+    State  go to state 82
 
 
 State 73
+
+   30 PrepStmt: PACTION NUM UNIT . ID SEMICOLON
+
+    ID  shift, and go to state 83
+
+
+State 74
 
    38 StepSentence: error SEMICOLON .
 
     $default  reduce using rule 38 (StepSentence)
 
 
-State 74
+State 75
 
    44 StepStmt: LEVEL FLAME . BLOCK
 
-    LC  shift, and go to state 83
+    LC  shift, and go to state 84
 
-    BLOCK  go to state 84
+    BLOCK  go to state 85
 
 
-State 75
+State 76
 
    36 StepStmts: StepSentence StepStmts .
 
     $default  reduce using rule 36 (StepStmts)
 
 
-State 76
+State 77
 
    41 StepStmt: Saction ID . SEMICOLON
    42         | Saction ID . Preposition State SEMICOLON
    43         | Saction ID . FOR NUM TIME SEMICOLON
 
-    SEMICOLON  shift, and go to state 85
-    FOR        shift, and go to state 86
+    SEMICOLON  shift, and go to state 86
+    FOR        shift, and go to state 87
     TO         shift, and go to state 66
     INTO       shift, and go to state 67
-    WHEN       shift, and go to state 68
-    UNTIL      shift, and go to state 69
-    AFTER      shift, and go to state 70
+    WITH       shift, and go to state 68
+    WHEN       shift, and go to state 69
+    UNTIL      shift, and go to state 70
+    AFTER      shift, and go to state 71
 
-    Preposition  go to state 87
-
-
-State 77
-
-   40 StepStmt: Saction NUM . UNIT ID SEMICOLON
-
-    UNIT  shift, and go to state 88
+    Preposition  go to state 88
 
 
 State 78
 
-   33 PrepStmt: PACTION ID FOR NUM . TIME SEMICOLON
+   40 StepStmt: Saction NUM . UNIT ID SEMICOLON
 
-    TIME  shift, and go to state 89
+    UNIT  shift, and go to state 89
 
 
 State 79
 
-   55 State: UNIT .
+   33 PrepStmt: PACTION ID FOR NUM . TIME SEMICOLON
 
-    $default  reduce using rule 55 (State)
+    TIME  shift, and go to state 90
 
 
 State 80
 
-   53 State: BECOME . ADJECTIVE
-   54      | BECOME . UNIT
+   56 State: UNIT .
 
-    ADJECTIVE  shift, and go to state 90
-    UNIT       shift, and go to state 91
+    $default  reduce using rule 56 (State)
 
 
 State 81
 
-   32 PrepStmt: PACTION ID Preposition State . SEMICOLON
+   54 State: BECOME . ADJECTIVE
+   55      | BECOME . UNIT
 
-    SEMICOLON  shift, and go to state 92
+    ADJECTIVE  shift, and go to state 91
+    UNIT       shift, and go to state 92
 
 
 State 82
 
-   30 PrepStmt: PACTION NUM UNIT ID . SEMICOLON
+   32 PrepStmt: PACTION ID Preposition State . SEMICOLON
 
     SEMICOLON  shift, and go to state 93
 
 
 State 83
+
+   30 PrepStmt: PACTION NUM UNIT ID . SEMICOLON
+
+    SEMICOLON  shift, and go to state 94
+
+
+State 84
 
    45 BLOCK: LC . StepStmts RC
 
@@ -929,149 +940,149 @@ State 83
 
     RC  reduce using rule 35 (StepStmts)
 
-    StepStmts     go to state 94
+    StepStmts     go to state 95
     StepSentence  go to state 60
     StepStmt      go to state 61
     Saction       go to state 62
 
 
-State 84
+State 85
 
    44 StepStmt: LEVEL FLAME BLOCK .
 
     $default  reduce using rule 44 (StepStmt)
 
 
-State 85
+State 86
 
    41 StepStmt: Saction ID SEMICOLON .
 
     $default  reduce using rule 41 (StepStmt)
 
 
-State 86
+State 87
 
    43 StepStmt: Saction ID FOR . NUM TIME SEMICOLON
 
-    NUM  shift, and go to state 95
-
-
-State 87
-
-   42 StepStmt: Saction ID Preposition . State SEMICOLON
-
-    UNIT    shift, and go to state 79
-    BECOME  shift, and go to state 80
-
-    State  go to state 96
+    NUM  shift, and go to state 96
 
 
 State 88
 
-   40 StepStmt: Saction NUM UNIT . ID SEMICOLON
+   42 StepStmt: Saction ID Preposition . State SEMICOLON
 
-    ID  shift, and go to state 97
+    UNIT    shift, and go to state 80
+    BECOME  shift, and go to state 81
+
+    State  go to state 97
 
 
 State 89
 
-   33 PrepStmt: PACTION ID FOR NUM TIME . SEMICOLON
+   40 StepStmt: Saction NUM UNIT . ID SEMICOLON
 
-    SEMICOLON  shift, and go to state 98
+    ID  shift, and go to state 98
 
 
 State 90
 
-   53 State: BECOME ADJECTIVE .
+   33 PrepStmt: PACTION ID FOR NUM TIME . SEMICOLON
 
-    $default  reduce using rule 53 (State)
+    SEMICOLON  shift, and go to state 99
 
 
 State 91
 
-   54 State: BECOME UNIT .
+   54 State: BECOME ADJECTIVE .
 
     $default  reduce using rule 54 (State)
 
 
 State 92
 
+   55 State: BECOME UNIT .
+
+    $default  reduce using rule 55 (State)
+
+
+State 93
+
    32 PrepStmt: PACTION ID Preposition State SEMICOLON .
 
     $default  reduce using rule 32 (PrepStmt)
 
 
-State 93
+State 94
 
    30 PrepStmt: PACTION NUM UNIT ID SEMICOLON .
 
     $default  reduce using rule 30 (PrepStmt)
 
 
-State 94
+State 95
 
    45 BLOCK: LC StepStmts . RC
 
-    RC  shift, and go to state 99
-
-
-State 95
-
-   43 StepStmt: Saction ID FOR NUM . TIME SEMICOLON
-
-    TIME  shift, and go to state 100
+    RC  shift, and go to state 100
 
 
 State 96
 
-   42 StepStmt: Saction ID Preposition State . SEMICOLON
+   43 StepStmt: Saction ID FOR NUM . TIME SEMICOLON
 
-    SEMICOLON  shift, and go to state 101
+    TIME  shift, and go to state 101
 
 
 State 97
 
-   40 StepStmt: Saction NUM UNIT ID . SEMICOLON
+   42 StepStmt: Saction ID Preposition State . SEMICOLON
 
     SEMICOLON  shift, and go to state 102
 
 
 State 98
 
+   40 StepStmt: Saction NUM UNIT ID . SEMICOLON
+
+    SEMICOLON  shift, and go to state 103
+
+
+State 99
+
    33 PrepStmt: PACTION ID FOR NUM TIME SEMICOLON .
 
     $default  reduce using rule 33 (PrepStmt)
 
 
-State 99
+State 100
 
    45 BLOCK: LC StepStmts RC .
 
     $default  reduce using rule 45 (BLOCK)
 
 
-State 100
+State 101
 
    43 StepStmt: Saction ID FOR NUM TIME . SEMICOLON
 
-    SEMICOLON  shift, and go to state 103
+    SEMICOLON  shift, and go to state 104
 
 
-State 101
+State 102
 
    42 StepStmt: Saction ID Preposition State SEMICOLON .
 
     $default  reduce using rule 42 (StepStmt)
 
 
-State 102
+State 103
 
    40 StepStmt: Saction NUM UNIT ID SEMICOLON .
 
     $default  reduce using rule 40 (StepStmt)
 
 
-State 103
+State 104
 
    43 StepStmt: Saction ID FOR NUM TIME SEMICOLON .
 
