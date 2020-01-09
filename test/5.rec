@@ -1,0 +1,22 @@
+// cookbook
+
+declarations:
+	vegetable leek;
+	meat eggs;
+	seasoning sauce;
+
+name: tomatoes and eggs;
+
+// ingredients:
+//	 leek 200 g;
+//	 eggs 2 bowls;
+
+preparations:
+	cut leek into slices;
+	stir eggs;
+
+steps:
+	pour 3 drops of sauce ;
+	mix eggs;
+	put leek;
+	fry leek for 5 minutes;

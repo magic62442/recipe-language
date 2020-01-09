@@ -1,0 +1,31 @@
+// peel potatoes should be "preparations"
+// stew -> "stew"
+
+declarations:
+	vegetable potatoes, pepper;
+	meat beef;
+	seasoning sauce, curry;
+
+name: stewed beef and potato;
+
+ingredients:
+	potatoes 500 g;
+	beef 500 g;
+
+preparations:
+	cut potatoes into chunks;
+	soak beef;
+
+steps:
+	pour curry;
+    peel potatoes;
+	put potatoes;
+	put beef;
+	pour sauce;
+	high flame 
+	{
+		"stew" beef for 30 minutes;
+	}
+	
+
+	

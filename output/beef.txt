@@ -1,0 +1,6 @@
+in recipe "stewed beef and potato": 
+	soak beef
+
+in recipe "stewed beef and potato": 
+	put beef
+

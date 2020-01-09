@@ -1,0 +1,12 @@
+in recipe "winner winner chicken dinner": 
+	pour 10 drops sauce
+
+in recipe "stewed beef and potato": 
+	pour sauce
+
+in recipe "winner winner chicken dinner": 
+	pour 10 drops sauce
+
+in recipe "winner winner chicken dinner": 
+	pour 10 drops sauce
+

@@ -1,0 +1,28 @@
+// 完全正确
+
+declarations:
+	vegetable coriander, pepper;
+	meat chicken;
+	seasoning sauce, oil;
+
+name: winner winner chicken dinner;
+
+ingredients:
+	coriander 10 g;
+	pepper 20 g;
+	chicken 2 bowls;
+
+preparations:
+	cut pepper into slices;
+	stir pepper;
+	take coriander;
+	soak chicken for 2 hours;
+	chop chicken into pieces;
+
+steps:
+	put pepper;
+	pour 10 drops sauce;
+	put coriander;
+	medium flame { fry pepper for 3 minutes; }
+	put chicken;
+	high flame { braise chicken for 10 minutes; }

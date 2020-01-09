@@ -1,0 +1,36 @@
+in recipe "winner winner chicken dinner": 
+	cut pepper into slices
+
+in recipe "winner winner chicken dinner": 
+	stir pepper
+
+in recipe "winner winner chicken dinner": 
+	put pepper
+
+in recipe "winner winner chicken dinner": 
+	fry pepper for 3 minutes
+
+in recipe "winner winner chicken dinner": 
+	cut pepper into slices
+
+in recipe "winner winner chicken dinner": 
+	stir pepper
+
+in recipe "winner winner chicken dinner": 
+	put pepper
+
+in recipe "winner winner chicken dinner": 
+	fry pepper for 3 minutes
+
+in recipe "winner winner chicken dinner": 
+	cut pepper into slices
+
+in recipe "winner winner chicken dinner": 
+	stir pepper
+
+in recipe "winner winner chicken dinner": 
+	put pepper
+
+in recipe "winner winner chicken dinner": 
+	fry pepper for 3 minutes
+

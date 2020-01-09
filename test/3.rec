@@ -1,0 +1,25 @@
+// line 12: bean -> beans
+// line 21: add semicolon
+
+declarations:
+	vegetable eggplant, beans;
+	seasoning oystersauce;
+
+name: eggplant and beans;
+
+ingredients:
+	eggplant 200 g;
+	bean 200 g;
+
+preparations:
+	cut eggplant into stripes;
+	cut beans into segments;
+
+steps:
+	put beans;
+	put 10 drops oystersauce;
+	fry beans until become bright;
+	put eggplant
+	fry eggplant until become bright;
+
+	

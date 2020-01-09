@@ -1,0 +1,24 @@
+// line 19 shuold be in steps;
+
+declarations:
+	meat pork;
+	seasoning sugar, brownsauce;	// 红烧酱
+
+name: pork braised in brown sauce;
+
+ingredients:
+	pork 300g;
+
+preparations:
+	// there should be at least 4 levels in each chunk of pork:
+	// fat pork, lean pork, fat pork, lean pork
+	cut pork into chunks;
+	simmer pork;
+
+steps:
+	put pork;
+	"add" sugar;
+	pour brownsauce;
+	medium flame { fry pork until become red; }
+
+	

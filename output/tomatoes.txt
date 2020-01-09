@@ -1,6 +1,0 @@
-in recipe "tomatoes and eggs": 
-	cut tomatoes into pieces
-
-in recipe "tomatoes and eggs": 
-	"make" tomatoes
-

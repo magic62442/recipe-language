@@ -1,0 +1,6 @@
+in recipe "stewed beef and potato": 
+	cut potatoes into chunks
+
+in recipe "stewed beef and potato": 
+	put potatoes
+

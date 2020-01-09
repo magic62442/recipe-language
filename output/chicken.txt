@@ -1,0 +1,36 @@
+in recipe "winner winner chicken dinner": 
+	soak chicken for 2 hours
+
+in recipe "winner winner chicken dinner": 
+	chop chicken into pieces
+
+in recipe "winner winner chicken dinner": 
+	put chicken
+
+in recipe "winner winner chicken dinner": 
+	braise chicken for 10 minutes
+
+in recipe "winner winner chicken dinner": 
+	soak chicken for 2 hours
+
+in recipe "winner winner chicken dinner": 
+	chop chicken into pieces
+
+in recipe "winner winner chicken dinner": 
+	put chicken
+
+in recipe "winner winner chicken dinner": 
+	braise chicken for 10 minutes
+
+in recipe "winner winner chicken dinner": 
+	soak chicken for 2 hours
+
+in recipe "winner winner chicken dinner": 
+	chop chicken into pieces
+
+in recipe "winner winner chicken dinner": 
+	put chicken
+
+in recipe "winner winner chicken dinner": 
+	braise chicken for 10 minutes
+

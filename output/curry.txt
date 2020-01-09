@@ -1,0 +1,3 @@
+in recipe "stewed beef and potato": 
+	pour curry
+

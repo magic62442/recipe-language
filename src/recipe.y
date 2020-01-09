@@ -30,7 +30,7 @@
 %token SEMICOLON COLON COMMA
 %token SACTION PACTION ADJECTIVE UNIT LEVEL TIME
 %token NAMEBEGIN DECLBEGIN INGRBEGIN PREPBEGIN STEPBEGIN 
-%token FOR TO INTO WITH WHEN UNTIL AFTER 
+%token FOR TO INTO WHEN UNTIL AFTER 
 %token BECOME FLAME
 %token VEGETABLE MEAT SEASONING 
 %token LC RC
@@ -52,7 +52,7 @@ DecList :
 	| Declaration DecList
 	;
 
-Declaration : Type IdList SEMICOLON { $$ = StrCat(2, $1, $2); AddElement($1, $2);}
+Declaration : Type IdList SEMICOLON { $$ = StrCat(2, $1, $2); AddElement($1, $2); }
 	| error SEMICOLON
 	| error
 	;
@@ -63,7 +63,7 @@ Type : VEGETABLE { $$ = StrCat(1, $1); }
 	;
 
 IdList : ID      { $$ = StrCat(1, $1); }
-	| ID COMMA IdList  { $$ = StrCat(2, $1, $2); }
+	| ID COMMA IdList  { $$ = StrCat(2, $1, $3); }
 	;
 
 DishName : NAMEBEGIN COLON Name SEMICOLON { $$ = strdup($3); dishName = $$; }
@@ -205,15 +205,14 @@ Saction : SACTION
 
 Preposition : TO
 	| INTO
-	| WITH
 	| WHEN
 	| UNTIL
 	| AFTER
 	;
 
-State : BECOME ADJECTIVE
-	| BECOME UNIT
-	| UNIT
+State : BECOME ADJECTIVE { $$ = StrCat(2, $1, $2); }
+	| BECOME UNIT { $$ = StrCat(2, $1, $2); }
+	| UNIT 
 	;
 %%
 
@@ -330,9 +329,9 @@ void WriteRecord(const char *id, const char * line) {
 
 int main(int argc, char** argv)
 {
-	// #ifdef YYDEBUG
-	// 	yydebug = 1;
-	// #endif
+	#ifdef YYDEBUG
+		yydebug = 1;
+	#endif
 	FILE *f;
 	if(argc <= 1)
 		f = fopen("../test/1.rec", "r");

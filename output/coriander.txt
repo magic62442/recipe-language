@@ -1,0 +1,18 @@
+in recipe "winner winner chicken dinner": 
+	take coriander
+
+in recipe "winner winner chicken dinner": 
+	put coriander
+
+in recipe "winner winner chicken dinner": 
+	take coriander
+
+in recipe "winner winner chicken dinner": 
+	put coriander
+
+in recipe "winner winner chicken dinner": 
+	take coriander
+
+in recipe "winner winner chicken dinner": 
+	put coriander
+

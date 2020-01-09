@@ -1,0 +1,158 @@
+1.rec:
+终端打印的内容：
+Syntax Error at line 4 : redefinition of tomatoes
+Syntax Error at line 12 : undeclared identifier potatoes
+Syntax Error at line 19 : using eggs without preparing them.
+Lexical Error at line 21: unexpected '-'
+Lexical Error at line 21: unexpected '-'
+
+文件写入的内容：
+
+tomatoes.txt:
+in recipe "tomatoes and eggs": 
+	cut tomatoes into pieces
+
+in recipe "tomatoes and eggs": 
+	"make" tomatoes
+
+oil.txt:
+in recipe "tomatoes and eggs": 
+	pour oil
+
+2.rec:
+
+终端打印的内容：
+Syntax Error at line 21 : syntax error, unexpected PACTION
+Syntax Error at line 27 : syntax error, unexpected ID, expecting SACTION or LEVEL or RC or UACTION
+
+文件写入的内容：
+
+beef.txt
+in recipe "stewed beef and potato": 
+	soak beef
+
+in recipe "stewed beef and potato": 
+	put beef
+
+curry.txt
+in recipe "stewed beef and potato": 
+	pour curry
+
+potatoes.txt
+in recipe "stewed beef and potato": 
+	cut potatoes into chunks
+
+in recipe "stewed beef and potato": 
+	put potatoes
+
+sauce.txt
+in recipe "stewed beef and potato": 
+	pour sauce
+
+3.rec:
+
+终端打印的内容：
+Syntax Error at line 12 : undeclared identifier bean
+Syntax Error at line 23 : syntax error, unexpected SACTION
+
+文件写入的内容：
+
+eggplant.txt:
+in recipe "eggplant and beans": 
+	cut eggplant into stripes
+
+in recipe "eggplant and beans": 
+	fry eggplant until become bright
+
+oystersauce.txt:
+in recipe "eggplant and beans": 
+	put oystersauce
+
+beans.txt
+in recipe "eggplant and beans": 
+	cut beans into segments
+
+in recipe "eggplant and beans": 
+	put beans
+
+in recipe "eggplant and beans": 
+	fry beans until become bright
+
+4.rec
+
+终端打印的内容：
+Syntax Error at line 16 : syntax error, unexpected SACTION, expecting PACTION or STEPBEGIN
+
+文件写入的内容：
+pork.txt
+in recipe "pork braised in brown sauce": 
+	cut pork into chunks
+
+in recipe "pork braised in brown sauce": 
+	put pork
+
+in recipe "pork braised in brown sauce": 
+	fry pork until become red
+
+sugar.txt
+in recipe "pork braised in brown sauce": 
+	"add" sugar
+
+brownsauce.txt
+in recipe "pork braised in brown sauce": 
+	pour brownsauce
+
+5.rec 
+
+终端打印的内容：
+Syntax Error at line 14 : syntax error, unexpected PREPBEGIN, expecting INGRBEGIN
+
+文件写入的内容：
+没有写入文件，因为字符串缺少ingredients结构
+
+6.rec
+
+终端打印的内容：
+没有打印内容，因为完全正确
+
+文件写入的内容：
+
+chicken.txt:
+in recipe "winner winner chicken dinner": 
+	soak chicken for 2 hours
+
+in recipe "winner winner chicken dinner": 
+	chop chicken into pieces
+
+in recipe "winner winner chicken dinner": 
+	put chicken
+
+in recipe "winner winner chicken dinner": 
+	braise chicken for 10 minutes
+
+pepper.txt:
+in recipe "winner winner chicken dinner": 
+	cut pepper into slices
+
+in recipe "winner winner chicken dinner": 
+	stir pepper
+
+in recipe "winner winner chicken dinner": 
+	put pepper
+
+in recipe "winner winner chicken dinner": 
+	fry pepper for 3 minutes
+
+coriander.txt:
+in recipe "winner winner chicken dinner": 
+	take coriander
+
+in recipe "winner winner chicken dinner": 
+	put coriander
+
+sauce.txt:
+in recipe "stewed beef and potato": 
+	pour sauce
+
+in recipe "winner winner chicken dinner": 
+	pour 10 drops sauce
